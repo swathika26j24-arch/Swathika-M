@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UI/UX Portfolio – Your Name</title>
+  <meta name="description" content="A clean, responsive UI/UX portfolio showcasing case studies, skills, and contact information." />
+  <meta property="og:title" content="UI/UX Portfolio – Your Name">
+  <meta property="og:description" content="Clean, responsive, and accessible UI/UX portfolio.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --panel: #0f1318;
+      --text: #e7edf3;
+      --muted: #b5c2cf;
+      --brand: #0ea5e9; /* sky-500 */
+      --brand-2: #22d3ee; /* cyan-400 */
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --err: #ef4444;
+      --ring: rgba(14,165,233,.35);
+      --shadow: 0 10px 30px rgba(2, 8, 23, .45);
+    }
+
+    :root.light {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #0b1220;
+      --muted: #425466;
+      --brand: #0284c7;
+      --brand-2: #06b6d4;
+      --ring: rgba(2,132,199,.25);
+      --shadow: 0 10px 30px rgba(2, 8, 23, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text); background: radial-gradient(2000px 1200px at 80% -10%, rgba(34,211,238,.08), transparent 50%),
+                              radial-gradient(1600px 1000px at -20% 10%, rgba(14,165,233,.10), transparent 40%),
+                              var(--bg);
+      line-height: 1.6; letter-spacing: .2px;
+    }
+
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { width: min(1200px, 92%); margin: 0 auto; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.2) blur(8px);
+      background: color-mix(in oklab, var(--bg) 78%, transparent);
+      border-bottom: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .5px; }
+    .logo { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); }
+    .nav a { font-weight: 600; opacity: .9; }
+    .nav-links { display: flex; gap: 18px; align-items: center; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 14px; font-weight: 700; border: 1px solid color-mix(in oklab, var(--text) 12%, transparent); background: color-mix(in oklab, var(--panel) 75%, transparent); box-shadow: var(--shadow); }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #001018; border: none; }
+
+    /* Mobile nav */
+    .menu-toggle { display: none; width: 40px; height: 40px; border-radius: 10px; border: 1px solid color-mix(in oklab, var(--text) 12%, transparent); background: color-mix(in oklab, var(--panel) 75%, transparent); }
+    .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px auto; border-radius: 2px; }
+
+    /* Hero */
+    .hero { padding: 70px 0 40px; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 36px; align-items: center; }
+    .kicker { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .kicker .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--brand-2); box-shadow: 0 0 0 6px color-mix(in oklab, var(--brand-2) 22%, transparent); }
+    h1 { font-size: clamp(36px, 5vw, 56px); line-height: 1.1; margin: 10px 0 12px; }
+    .subtitle { font-size: clamp(16px, 2.4vw, 20px); color: var(--muted); margin-bottom: 22px; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+    .metric { padding: 14px; border-radius: 14px; background: color-mix(in oklab, var(--panel) 80%, transparent); border: 1px solid color-mix(in oklab, var(--text) 10%, transparent); text-align: center; }
+    .metric h3 { margin: 0; font-size: 22px; }
+    .metric p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+    .hero-img { aspect-ratio: 4/3; border-radius: 18px; border: 1px solid color-mix(in oklab, var(--text) 10%, transparent); background: radial-gradient(800px 500px at 10% 0%, rgba(14,165,233,.18), transparent 50%),
+                linear-gradient(180deg, color-mix(in oklab, var(--panel) 90%, transparent), color-mix(in oklab, var(--panel) 60%, transparent));
+                display: grid; place-items: center; box-shadow: var(--shadow);
+    }
+    .hero-img .placeholder { font-weight: 700; color: var(--muted); }
+
+    /* Section */
+    section { padding: 70px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+    .section-head h2 { margin: 0; font-size: clamp(26px, 4vw, 36px); }
+    .section-head p { margin: 0; color: var(--muted); }
+
+    /* Skills */
+    .skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .chip { padding: 12px 14px; border-radius: 12px; border: 1px solid color-mix(in oklab, var(--text) 12%, transparent); background: color-mix(in oklab, var(--panel) 80%, transparent); font-weight: 700; }
+
+    /* Case Studies */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { border-radius: 16px; overflow: clip; border: 1px solid color-mix(in oklab, var(--text) 10%, transparent); background: color-mix(in oklab, var(--panel) 80%, transparent); box-shadow: var(--shadow); display: flex; flex-direction: column; }
+    .thumb { aspect-ratio: 16/10; background: linear-gradient(135deg, color-mix(in oklab, var(--brand) 30%, #000 0%), color-mix(in oklab, var(--brand-2) 30%, #000 0%)); }
+    .card-body { padding: 16px; display: grid; gap: 10px; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { font-size: 12px; color: var(--muted); border: 1px dashed color-mix(in oklab, var(--text) 12%, transparent); padding: 4px 8px; border-radius: 999px; }
+
+    /* Process */
+    .process { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .step { padding: 16px; border-radius: 14px; border: 1px solid color-mix(in oklab, var(--text) 10%, transparent); background: color-mix(in oklab, var(--panel) 82%, transparent); position: relative; }
+    .step::after { content:""; position: absolute; inset: auto 0 -10px 0; height: 4px; border-radius: 999px; background: linear-gradient(90deg, var(--brand), var(--brand-2)); opacity:.6 }
+
+    /* Testimonials */
+    .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .quote { padding: 16px; border-radius: 16px; border: 1px solid color-mix(in oklab, var(--text) 10%, transparent); background: color-mix(in oklab, var(--panel) 82%, transparent); }
+    .quote p { margin: 8px 0 0; color: var(--muted); }
+
+    /* Contact */
+    form { display: grid; gap: 12px; }
+    .field { display: grid; gap: 6px; }
+    .field label { font-weight: 700; font-size: 14px; }
+    .input, textarea { padding: 12px 14px; border-radius: 12px; border: 1px solid color-mix(in oklab, var(--text) 12%, transparent); background: color-mix(in oklab, var(--panel) 80%, transparent); color: var(--text); outline: none; }
+    .input:focus, textarea:focus { box-shadow: 0 0 0 6px var(--ring); border-color: transparent; }
+    .error { color: var(--err); font-size: 12px; display: none; }
+
+    /* Footer */
+    footer { padding: 40px 0; border-top: 1px solid color-mix(in oklab, var(--text) 10%, transparent); color: var(--muted); }
+
+    /* Utilities */
+    .hidden { display: none !important; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .process { grid-template-columns: repeat(3, 1fr); }
+      .skills { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .menu-toggle { display: inline-block; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .process { grid-template-columns: 1fr 1fr; }
+      .skills { grid-template-columns: 1fr 1fr; }
+      .testimonials { grid-template-columns: 1fr; }
+      section { padding: 56px 0; }
+      .hero { padding: 56px 0 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Your Name</span>
+      </div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+        <button id="downloadBtn" class="btn" type="button" title="Download PDF Resume">⬇ Resume</button>
+        <button id="themeBtn" class="btn" type="button" title="Toggle theme">🌓 Theme</button>
+      </nav>
+      <button class="menu-toggle" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero container" id="home">
+      <div class="hero-grid">
+        <div>
+          <span class="kicker"><span class="dot"></span> UI/UX Designer · Product Thinker</span>
+          <h1>Designing human‑centered products that drive business outcomes</h1>
+          <p class="subtitle">I craft simple, accessible experiences for complex problems—through research, rapid prototyping, and thoughtful interaction design.</p>
+          <div class="hero-cta">
+            <a href="#work" class="btn primary">View Case Studies</a>
+            <a href="#contact" class="btn">Let’s Collaborate →</a>
+          </div>
+          <div class="metrics">
+            <div class="metric"><h3>20+</h3><p>Projects shipped</p></div>
+            <div class="metric"><h3>5 yrs</h3><p>Design experience</p></div>
+            <div class="metric"><h3>95%</h3><p>Client satisfaction</p></div>
+          </div>
+        </div>
+        <div class="hero-img" aria-hidden="true">
+          <div class="placeholder">Add your hero image or mockups</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="container" id="about">
+      <div class="section-head">
+        <h2>About & Skills</h2>
+        <p>What I bring to the table</p>
+      </div>
+      <p>I'm a UI/UX designer focused on creating delightful, inclusive digital experiences. I partner closely with product and engineering to validate ideas quickly, align with business goals, and deliver with quality.</p>
+      <div class="skills" style="margin-top:16px">
+        <div class="chip">User Research</div>
+        <div class="chip">Wireframing</div>
+        <div class="chip">Prototyping</div>
+        <div class="chip">Interaction Design</div>
+        <div class="chip">Design Systems</div>
+        <div class="chip">Usability Testing</div>
+        <div class="chip">Accessibility (WCAG)</div>
+        <div class="chip">Figma / FigJam</div>
+        <div class="chip">Information Architecture</div>
+        <div class="chip">Visual Design</div>
+        <div class="chip">Responsive Web</div>
+        <div class="chip">Handoff & Specs</div>
+      </div>
+    </section>
+
+    <!-- Work / Case Studies -->
+    <section class="container" id="work">
+      <div class="section-head">
+        <h2>Selected Case Studies</h2>
+        <p>End‑to‑end projects with measurable impact</p>
+      </div>
+      <div class="grid" role="list">
+        <!-- Card 1 -->
+        <article class="card" role="listitem">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-body">
+            <h3>Fintech Onboarding Redesign</h3>
+            <p class="muted">Reduced drop‑off by 32% by simplifying KYC, clarifying steps, and adding progressive disclosure.</p>
+            <div class="tags">
+              <span class="tag">Research</span>
+              <span class="tag">Flow Design</span>
+              <span class="tag">Usability</span>
+            </div>
+            <button class="btn" data-modal="cs1">View Details</button>
+          </div>
+        </article>
+        <!-- Card 2 -->
+        <article class="card" role="listitem">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-body">
+            <h3>Health App Design System</h3>
+            <p>Created an accessible UI kit, cutting dev handoff time by 40% and improving consistency.</p>
+            <div class="tags">
+              <span class="tag">Design System</span>
+              <span class="tag">WCAG</span>
+              <span class="tag">Tokens</span>
+            </div>
+            <button class="btn" data-modal="cs2">View Details</button>
+          </div>
+        </article>
+        <!-- Card 3 -->
+        <article class="card" role="listitem">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-body">
+            <h3>Marketplace IA & Search</h3>
+            <p>Re‑architected navigation and search relevance, increasing conversion by 18%.</p>
+            <div class="tags">
+              <span class="tag">IA</span>
+              <span class="tag">Search</span>
+              <span class="tag">A/B Testing</span>
+            </div>
+            <button class="btn" data-modal="cs3">View Details</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="container" id="process">
+      <div class="section-head">
+        <h2>Process</h2>
+        <p>How I approach problems</p>
+      </div>
+      <div class="process">
+        <div class="step"><strong>1. Discover</strong><br/><small>Stakeholder & user interviews, analytics review</small></div>
+        <div class="step"><strong>2. Define</strong><br/><small>Personas, problem framing, success metrics</small></div>
+        <div class="step"><strong>3. Ideate</strong><br/><small>Sketches, flows, low‑fi wireframes</small></div>
+        <div class="step"><strong>4. Prototype</strong><br/><small>Interactive prototypes, usability tests</small></div>
+        <div class="step"><strong>5. Deliver</strong><br/><small>Specs, tokens, dev handoff, iterate</small></div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="container" id="testimonials">
+      <div class="section-head">
+        <h2>What Clients Say</h2>
+        <p>Feedback from teams I’ve worked with</p>
+      </div>
+      <div class="testimonials">
+        <blockquote class="quote">
+          <strong>"A rare blend of speed and rigor."</strong>
+          <p>— Priya S., Product Manager</p>
+        </blockquote>
+        <blockquote class="quote">
+          <strong>"Turned a complex flow into a joy to use."</strong>
+          <p>— Alex M., Engineering Lead</p>
+        </blockquote>
+        <blockquote class="quote">
+          <strong>"Our metrics moved in weeks, not months."</strong>
+          <p>— Rohan K., Founder</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="container" id="contact">
+      <div class="section-head">
+        <h2>Let’s Work Together</h2>
+        <p>Tell me about your project</p>
+      </div>
+      <form id="contactForm" novalidate>
+        <div class="field">
+          <label for="name">Name</label>
+          <input class="input" id="name" name="name" placeholder="Your full name" required />
+          <span class="error" id="err-name">Please enter your name.</span>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input class="input" id="email" name="email" type="email" placeholder="you@example.com" required />
+          <span class="error" id="err-email">Please enter a valid email.</span>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="A short brief…" required></textarea>
+          <span class="error" id="err-message">Please write a short message.</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+          <button class="btn primary" type="submit">Send Message</button>
+          <span id="formStatus" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+      <div>
+        © <span id="year"></span> Your Name · <a href="#">@yourhandle</a>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <a href="#home">Top ⤴</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Case Study Modals -->
+  <div id="cs1" class="hidden" role="dialog" aria-modal="true" aria-labelledby="cs1-title">
+    <div class="container" style="position: fixed; inset: 0; display:grid; place-items:center; background: rgba(0,0,0,.55);">
+      <article style="max-width:900px; width:92%; background: var(--panel); border:1px solid color-mix(in oklab, var(--text) 12%, transparent); border-radius:18px; box-shadow: var(--shadow); overflow:auto; max-height: 86vh;">
+        <header style="display:flex; justify-content:space-between; align-items:center; padding:16px; border-bottom:1px solid color-mix(in oklab, var(--text) 10%, transparent);">
+          <h3 id="cs1-title" style="margin:0">Fintech Onboarding Redesign</h3>
+          <button class="btn" data-close="cs1">✕</button>
+        </header>
+        <div style="padding:16px; display:grid; gap:14px;">
+          <p><strong>Goal:</strong> Increase onboarding completion without compromising compliance.</p>
+          <p><strong>Role:</strong> Lead Designer · <strong>Team:</strong> PM, 2 FE devs, Legal</p>
+          <ul>
+            <li>Mapped user journeys and identified high‑friction KYC steps.</li>
+            <li>Introduced progressive disclosure and contextual help.</li>
+            <li>Prototyped and usability‑tested 3 variations with 12 users.</li>
+          </ul>
+          <p><strong>Impact:</strong> 32% reduction in drop‑off; 18% faster completion time.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div id="cs2" class="hidden" role="dialog" aria-modal="true" aria-labelledby="cs2-title">
+    <div class="container" style="position: fixed; inset: 0; display:grid; place-items:center; background: rgba(0,0,0,.55);">
+      <article style="max-width:900px; width:92%; background: var(--panel); border:1px solid color-mix(in oklab, var(--text) 12%, transparent); border-radius:18px; box-shadow: var(--shadow); overflow:auto; max-height: 86vh;">
+        <header style="display:flex; justify-content:space-between; align-items:center; padding:16px; border-bottom:1px solid color-mix(in oklab, var(--text) 10%, transparent);">
+          <h3 id="cs2-title" style="margin:0">Health App Design System</h3>
+          <button class="btn" data-close="cs2">✕</button>
+        </header>
+        <div style="padding:16px; display:grid; gap:14px;">
+          <p><strong>Goal:</strong> Create a scalable, accessible component library.</p>
+          <ul>
+            <li>Defined tokens (color, type, spacing) with accessibility contrast.</li>
+            <li>Built Figma + code parity with component docs & usage guidelines.</li>
+            <li>Set up lighthouse checks and PR templates for UX QA.</li>
+          </ul>
+          <p><strong>Impact:</strong> 40% faster handoff, fewer visual regressions.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div id="cs3" class="hidden" role="dialog" aria-modal="true" aria-labelledby="cs3-title">
+    <div class="container" style="position: fixed; inset: 0; display:grid; place-items:center; background: rgba(0,0,0,.55);">
+      <article style="max-width:900px; width:92%; background: var(--panel); border:1px solid color-mix(in oklab, var(--text) 12%, transparent); border-radius:18px; box-shadow: var(--shadow); overflow:auto; max-height: 86vh;">
+        <header style="display:flex; justify-content:space-between; align-items:center; padding:16px; border-bottom:1px solid color-mix(in oklab, var(--text) 10%, transparent);">
+          <h3 id="cs3-title" style="margin:0">Marketplace IA & Search</h3>
+          <button class="btn" data-close="cs3">✕</button>
+        </header>
+        <div style="padding:16px; display:grid; gap:14px;">
+          <p><strong>Goal:</strong> Help users find relevant items faster.</p>
+          <ul>
+            <li>Card‑sort study to inform navigation and taxonomy.</li>
+            <li>Improved ranking signals; empty/zero‑state UX.</li>
+            <li>Measured via funnel analytics and A/B tests.</li>
+          </ul>
+          <p><strong>Impact:</strong> +18% conversion, +24% search satisfaction.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle (persist in localStorage)
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') root.classList.add('light');
+    themeBtn?.addEventListener('click', () => {
+      root.classList.toggle('light');
+      localStorage.setItem('theme', root.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // Mobile menu – simple toggle shows links as an overlay
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.querySelector('.nav-links');
+    menuBtn?.addEventListener('click', () => {
+      const open = navLinks.style.display === 'flex';
+      navLinks.style.display = open ? 'none' : 'flex';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.position = 'absolute';
+      navLinks.style.top = '64px';
+      navLinks.style.right = '4%';
+      navLinks.style.padding = '12px';
+      navLinks.style.background = getComputedStyle(document.documentElement).getPropertyValue('--panel');
+      navLinks.style.border = '1px solid ' + getComputedStyle(document.documentElement).getPropertyValue('--text') + '22';
+      menuBtn.setAttribute('aria-expanded', String(!open));
+    });
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Reveal on scroll
+    const reveal = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.animate([
+            { opacity: 0, transform: 'translateY(16px)' },
+            { opacity: 1, transform: 'translateY(0)' }
+          ], { duration: 600, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' });
+          reveal.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('section, .card, .step, .quote').forEach(el => reveal.observe(el));
+
+    // Modal logic for case studies
+    const openBtns = document.querySelectorAll('[data-modal]');
+    const closeBtns = document.querySelectorAll('[data-close]');
+    openBtns.forEach(btn => btn.addEventListener('click', () => toggleModal(btn.dataset.modal, true)));
+    closeBtns.forEach(btn => btn.addEventListener('click', () => toggleModal(btn.dataset.close, false)));
+    function toggleModal(id, open) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.toggle('hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      // Close when clicking the overlay
+      const overlay = modal.firstElementChild;
+      overlay?.addEventListener('click', (e) => { if (e.target === overlay) toggleModal(id, false); }, { once: true });
+    }
+
+    // Simple client-side form validation
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const message = document.getElementById('message');
+      const valid = {
+        name: name.value.trim().length > 1,
+        email: /^\S+@\S+\.\S+$/.test(email.value),
+        message: message.value.trim().length > 9,
+      };
+      document.getElementById('err-name').style.display = valid.name ? 'none' : 'block';
+      document.getElementById('err-email').style.display = valid.email ? 'none' : 'block';
+      document.getElementById('err-message').style.display = valid.message ? 'none' : 'block';
+      if (valid.name && valid.email && valid.message) {
+        status.textContent = 'Thanks! Your message is ready to send (demo)';
+        status.style.color = getComputedStyle(document.documentElement).getPropertyValue('--ok');
+        form.reset();
+      } else {
+        status.textContent = 'Please fix the highlighted fields.';
+        status.style.color = getComputedStyle(document.documentElement).getPropertyValue('--err');
+      }
+    });
+
+    // Dummy resume download (replace with your file)
+    document.getElementById('downloadBtn')?.addEventListener('click', () => {
+      const blob = new Blob([`Your Name\nUI/UX Designer\nPortfolio: yoursite.com`], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'YourName-Resume.txt'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
